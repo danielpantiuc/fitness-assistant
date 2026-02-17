@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fitness_db
+    username: fitness
+    password: ${DB_PASSWORD:changeme}
+  jpa:
+    hibernate:
+      ddl-auto: validate # Vom folosi migrări de DB mai târziu
+    show-sql: false
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+server:
+  port: 8080
+
+app:
+  ai-service-url: ${AI_SERVICE_URL:http://localhost:8000}
+  jwt-secret: ${JWT_SECRET:o-cheie-foarte-lunga-si-secreta-pentru-licenta-2026}
+  jwt-expiration-ms: 86400000 # 24 ore
+  video-storage-path: ${VIDEO_STORAGE_PATH:./videos}
+
+# Configurare Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
