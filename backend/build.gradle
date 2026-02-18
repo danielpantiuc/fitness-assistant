@@ -20,14 +20,18 @@ configurations {
 	}
 }
 
+// Exclude the default Spring Boot logging starter (which brings log4j-to-slf4j)
+// when we use Log4j2 to avoid having both log4j-to-slf4j and log4j-slf4j2-impl on the classpath.
+configurations.all {
+	exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	implementation ('org.springframework.boot:spring-boot-starter-web') {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-	}
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -40,6 +44,9 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-flyway'
+	implementation 'org.flywaydb:flyway-database-postgresql'
 
 	runtimeOnly 'org.postgresql:postgresql'
 	compileOnly 'org.projectlombok:lombok'
