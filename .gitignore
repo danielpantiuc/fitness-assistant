@@ -32,3 +32,5 @@ Thumbs.db
 
 # Videos (uploaded by users, too large for Git)
 videos/
+
+.env
