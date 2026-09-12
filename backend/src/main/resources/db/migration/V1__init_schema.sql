@@ -1,11 +1,5 @@
--- V1__init_schema.sql
--- Fitness Assistant — Initial Database Schema
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- ============================================
--- 1. USERS — Conturi utilizatori
--- ============================================
 CREATE TABLE users (
     id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     email         VARCHAR(255) UNIQUE NOT NULL,
@@ -16,9 +10,6 @@ CREATE TABLE users (
     updated_at    TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
--- ============================================
--- 2. VIDEOS — Fișiere video încărcate
--- ============================================
 CREATE TABLE videos (
     id               UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id          UUID         NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -34,9 +25,6 @@ CREATE TABLE videos (
 CREATE INDEX idx_videos_user_id ON videos(user_id);
 CREATE INDEX idx_videos_status  ON videos(status);
 
--- ============================================
--- 3. ANALYSIS_RESULTS — Rezultatul analizei AI
--- ============================================
 CREATE TABLE analysis_results (
     id                 UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     video_id           UUID UNIQUE NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
@@ -48,9 +36,6 @@ CREATE TABLE analysis_results (
     created_at         TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
--- ============================================
--- 4. REP_DETAILS — Detalii per repetare
--- ============================================
 CREATE TABLE rep_details (
     id             UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     analysis_id    UUID        NOT NULL REFERENCES analysis_results(id) ON DELETE CASCADE,

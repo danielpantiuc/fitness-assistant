@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15-alpine
     environment:
       POSTGRES_USER: ${DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-falsepassword}
       POSTGRES_DB: ${DB_NAME:-fitness_db}
     ports:
       - "5432:5432"
@@ -24,8 +22,12 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-fitness_db}
       SPRING_DATASOURCE_USERNAME: ${DB_USER:-postgres}
-      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-changeme}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-falsepassword}
       AI_SERVICE_URL: http://ai-service:8000
+      JWT_SECRET: ${JWT_SECRET}
+      VIDEO_STORAGE_PATH: /app/videos
+    volumes:
+      - ${HOST_VIDEO_STORAGE_PATH:-./videos}:/app/videos
     depends_on:
       postgres:
         condition: service_healthy
@@ -35,10 +37,21 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-changeme}@postgres:5432/${DB_NAME:-fitness_db}
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-falsepassword}@postgres:5432/${DB_NAME:-fitness_db}
+      VIDEO_STORAGE_PATH: /app/videos
+    volumes:
+      - ${HOST_VIDEO_STORAGE_PATH:-./videos}:/app/videos
     depends_on:
       postgres:
         condition: service_healthy
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+    restart: unless-stopped
 
 volumes:
   postgres_data:

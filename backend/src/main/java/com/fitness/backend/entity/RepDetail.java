@@ -29,19 +29,11 @@ public class RepDetail {
 
     private Float score;
 
-    @Column(length = 30)
-    private String phase;
-
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private String errors;
 
-    @Column(name = "min_knee_angle")
-    private Float minKneeAngle;
-
-    @Column(name = "min_hip_angle")
-    private Float minHipAngle;
-
-    @Column(name = "max_trunk_lean")
-    private Float maxTrunkLean;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "exercise_metrics", columnDefinition = "jsonb")
+    private String exerciseMetrics;
 }

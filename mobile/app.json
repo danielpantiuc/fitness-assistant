@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "SBD Assist",
+    "slug": "fitness-assistant",
+    "version": "1.0.0",
+    "scheme": "fitnessassistant",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon-v2.png",
+    "splash": {
+      "image": "./assets/splash-v2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f172a"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow SBD Assist to access your videos for form analysis."
+        }
+      ],
+      "expo-video"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.anonymous.fitness-assistant"
+    }
+  }
+}

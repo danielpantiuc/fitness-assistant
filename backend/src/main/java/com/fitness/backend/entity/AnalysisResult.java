@@ -38,18 +38,9 @@ public class AnalysisResult {
     @Column(columnDefinition = "jsonb")
     private String feedback;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "landmark_summary", columnDefinition = "jsonb")
-    private String landmarkSummary;
-
-    @Column(name = "processing_time_ms")
-    private Integer processingTimeMs;
-
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
-    // ── Relații ──────────────────────────────────────
 
     @OneToMany(mappedBy = "analysisResult", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

@@ -1,36 +1,29 @@
-# Java / Spring Boot
 backend/target/
 *.class
 *.jar
 
-# Python
 ai-service/__pycache__/
 ai-service/.venv/
+ai-service/venv/
+ai-service/data/
+ai-service/dataset/
 *.pyc
 
-# React Native
 mobile/node_modules/
 mobile/.expo/
 mobile/android/app/build/
 mobile/ios/Pods/
 
-# Environment
 .env
 *.log
 
-# IDE
 .idea/
 .vscode/
 *.iml
 
-# Docker
 pgdata/
 
-# OS
 .DS_Store
 Thumbs.db
 
-# Videos (uploaded by users, too large for Git)
 videos/
-
-.env
